@@ -19,3 +19,15 @@ module SignInHelper
     post session_url, params: { email_address: user.email_address, password: password }
   end
 end
+
+module SystemSignInHelper
+  def sign_in_as(user, password = "password")
+    visit new_session_url
+
+    fill_in "email_address", with: user.email_address
+    fill_in "password", with: password
+    click_button "Sign in"
+
+    assert_selector "h1", text: "Breakable Toys"
+  end
+end
