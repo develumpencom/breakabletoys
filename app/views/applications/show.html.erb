@@ -1,4 +1,4 @@
-<div class="mx-auto md:w-2/3 w-full flex">
+<div class="mx-auto md:w-2/3 w-full">
   <div class="mx-auto">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
@@ -11,5 +11,16 @@
     <div class="inline-block ml-2">
       <%= button_to "Destroy this application", @application, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
+  </div>
+
+  <div class="mx-auto mt-10">
+    <div class="flex justify-between items-center">
+      <h2 class="font-bold text-2xl">Credentials</h2>
+      <%= button_to "Add credentials", application_oauth_application_credentials_path(@application), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    </div>
+
+    <ul>
+      <%= render partial: "oauth_application_credentials/credential", collection: @application.oauth_application_credentials, as: :credential %>
+    </ul>
   </div>
 </div>
