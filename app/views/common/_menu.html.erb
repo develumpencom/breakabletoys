@@ -1,0 +1,17 @@
+<div class="mb-10 flex justify-between items-center">
+  <%= link_to "Breakable Toys", root_path, class: "text-xl" %>
+  <ul class="flex space-x-3">
+    <% if authenticated? %>
+      <li>
+        <%= Current.user.email_address %>
+      </li>
+      <li>
+        <%= button_to "Sign out", session_path, method: :delete %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to "Sign in", new_session_path %>
+      </li>
+    <% end %>
+  </ul>
+</div>

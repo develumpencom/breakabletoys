@@ -28,6 +28,6 @@ module SystemSignInHelper
     fill_in "password", with: password
     click_button "Sign in"
 
-    assert_selector "h1", text: "Breakable Toys"
+    assert_selector "div", text: "Welcome back to Breakable Toys!"
   end
 end
