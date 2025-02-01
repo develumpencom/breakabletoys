@@ -28,7 +28,6 @@ class ApplicationsTest < ApplicationSystemTestCase
     click_on "Create Application"
 
     assert_text "Application was successfully created"
-    click_on "Back"
   end
 
   test "should update Application" do
@@ -44,7 +43,6 @@ class ApplicationsTest < ApplicationSystemTestCase
     click_on "Update Application"
 
     assert_text "Application was successfully updated"
-    click_on "Back"
   end
 
   test "should destroy Application" do
