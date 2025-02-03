@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :applications
   resource :session
   resources :passwords, param: :token
+  resource :account, only: %i[show], module: "users"
 
   root "home#show"
 end

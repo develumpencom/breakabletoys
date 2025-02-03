@@ -3,13 +3,10 @@
   <ul class="flex space-x-3">
     <% if authenticated? %>
       <li>
-        <%= Current.user.email_address %>
+        <%= link_to Current.user.email_address, account_path %>
       </li>
       <li>
         <%= link_to "Applications", applications_path %>
-      </li>
-      <li>
-        <%= button_to "Sign out", session_path, method: :delete %>
       </li>
     <% else %>
       <li>
