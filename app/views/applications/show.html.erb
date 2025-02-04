@@ -1,6 +1,20 @@
-<%= render "application", application: @application %>
+<div class="mx-auto">
+  <%= render "application", application: @application %>
 
-<%= link_to "Edit this application", edit_application_path(@application), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-<div class="inline-block ml-2">
-  <%= button_to "Destroy this application", @application, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  <%= link_to "Edit this application", edit_application_path(@application), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to applications", applications_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="inline-block ml-2">
+    <%= button_to "Destroy this application", @application, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
+</div>
+
+<div class="mx-auto mt-10">
+  <div class="flex justify-between items-center">
+    <h2 class="font-bold text-2xl">Credentials</h2>
+    <%= button_to "Add credentials", application_oauth_application_credentials_path(@application), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <ul>
+    <%= render partial: "oauth_application_credentials/credential", collection: @application.oauth_application_credentials, as: :credential %>
+  </ul>
 </div>

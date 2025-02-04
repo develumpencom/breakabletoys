@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_04_115611) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_06_215912) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_04_115611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_applications_on_user_id"
+  end
+
+  create_table "oauth_application_credentials", force: :cascade do |t|
+    t.bigint "application_id", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_oauth_application_credentials_on_application_id"
+    t.index ["client_id"], name: "index_oauth_application_credentials_on_client_id", unique: true
+    t.index ["client_secret"], name: "index_oauth_application_credentials_on_client_secret", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -43,5 +55,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_04_115611) do
   end
 
   add_foreign_key "applications", "users"
+  add_foreign_key "oauth_application_credentials", "applications"
   add_foreign_key "sessions", "users"
 end
