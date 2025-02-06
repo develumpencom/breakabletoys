@@ -1,11 +1,13 @@
 class OauthController < ApplicationController
   AVAILABLE_RESPONSE_TYPES = %w[code token].freeze
+  AVAILABLE_GRANT_TYPES = %w[authorization_code].freeze
 
   skip_before_action :verify_authenticity_token, only: %i[ token ]
   allow_unauthenticated_access only: %i[ token ]
+  before_action :validate_response_type, only: %i[ auth ]
+  before_action :validate_grant_type, only: %i[ token ]
   before_action :set_application
   before_action :set_user, only: %i[ token ]
-  before_action :validate_response_type, only: %i[ auth ]
   before_action :validate_application
 
   def auth
@@ -17,7 +19,7 @@ class OauthController < ApplicationController
     uri = URI(redirect_uri)
     uri.query = URI.encode_www_form({
       code:,
-      state: params[:state],
+      state: params[:state]
     })
 
     redirect_to uri, allow_other_host: true
@@ -39,9 +41,9 @@ class OauthController < ApplicationController
   def set_application
     credential = case action_name
     when "auth"
-      OauthApplicationCredential.find_by(client_id:)
+      OauthApplicationCredential.where(revoked_at: nil).find_by(client_id:)
     when "token"
-      OauthApplicationCredential.find_by(client_id:, client_secret:)
+      OauthApplicationCredential.where(revoked_at: nil).find_by(client_id:, client_secret:)
     else
       nil
     end
@@ -65,10 +67,14 @@ class OauthController < ApplicationController
     params[:redirect_uri]
   end
 
+  def grant_type
+    params[:grant_type]
+  end
+
   def validate_response_type
     if !AVAILABLE_RESPONSE_TYPES.include?(params[:response_type])
       render json: {
-        error: "invalid response_type",
+        error: "invalid response_type"
       }, status: :bad_request and return
     end
   end
@@ -78,13 +84,21 @@ class OauthController < ApplicationController
 
     if @application.nil?
       render json: {
-        error: "invalid client_id",
+        error: "invalid client_id"
       }, status: :bad_request and return
     end
 
     if @application.redirect_url != redirect_uri
       render json: {
-        error: "invalid redirect_uri",
+        error: "invalid redirect_uri"
+      }, status: :bad_request and return
+    end
+  end
+
+  def validate_grant_type
+    if !AVAILABLE_GRANT_TYPES.include?(grant_type)
+      render json: {
+        error: "invalid grant_type"
       }, status: :bad_request and return
     end
   end
@@ -92,7 +106,7 @@ class OauthController < ApplicationController
   def id_token
     JWT.encode({
       sub: @user.id,
-      email: @user.email_address,
+      email: @user.email_address
     }, client_id, "HS256")
   end
 end
