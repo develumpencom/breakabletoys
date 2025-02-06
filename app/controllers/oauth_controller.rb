@@ -1,13 +1,14 @@
 class OauthController < ApplicationController
   AVAILABLE_RESPONSE_TYPES = %w[code token].freeze
 
-  skip_before_action :verify_authenticity_token, only: %i[ create ]
-  allow_unauthenticated_access only: %i[ create ]
+  skip_before_action :verify_authenticity_token, only: %i[ token ]
+  allow_unauthenticated_access only: %i[ token ]
   before_action :set_application
-  before_action :validate_response_type, only: %i[ show ]
+  before_action :set_user, only: %i[ token ]
+  before_action :validate_response_type, only: %i[ auth ]
   before_action :validate_application
 
-  def show
+  def auth
     # TODO: For now we assume the user is signed in. Decide how to proceed if not.
 
     # TODO: token should be invalidated after one use.
@@ -22,24 +23,42 @@ class OauthController < ApplicationController
     redirect_to uri, allow_other_host: true
   end
 
-  def create
-    # TODO: veryfy client_id and client_secret, generate and return token.
+  def token
+    # TODO: generate, store and return access_token.
+
     render json: {
-      access_token: "",
+      access_token: "nothing-here-yet",
       token_type: "Bearer",
       expires_in: 3600,
-      id_token: "JWT with user info"
+      id_token:
     }
   end
 
   private
 
   def set_application
-    @application = OauthApplicationCredential.find_by(client_id:)&.application
+    credential = case action_name
+    when "auth"
+      OauthApplicationCredential.find_by(client_id:)
+    when "token"
+      OauthApplicationCredential.find_by(client_id:, client_secret:)
+    else
+      nil
+    end
+
+    @application = credential&.application
+  end
+
+  def set_user
+    @user = User.find_by_token_for(:oauth_authentication, params[:code])
   end
 
   def client_id
     params[:client_id]
+  end
+
+  def client_secret
+    params[:client_secret]
   end
 
   def redirect_uri
@@ -68,5 +87,12 @@ class OauthController < ApplicationController
         error: "invalid redirect_uri",
       }, status: :bad_request and return
     end
+  end
+
+  def id_token
+    JWT.encode({
+      sub: @user.id,
+      email: @user.email_address,
+    }, client_id, "HS256")
   end
 end
