@@ -5,11 +5,11 @@ one:
   name: MyString
   url: MyString
   description: MyText
-  redirect_url: MyString
+  redirect_url: http://localhost:3000/oauth/callback
 
 two:
   user: two
   name: MyString
   url: MyString
   description: MyText
-  redirect_url: MyString
+  redirect_url: http://localhost:3000/oauth/callback
