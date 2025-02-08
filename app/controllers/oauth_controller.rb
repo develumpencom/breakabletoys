@@ -26,6 +26,7 @@ class OauthController < ApplicationController
   end
 
   def token
+    no_store
     # TODO: generate, store and return access_token.
 
     render json: {
