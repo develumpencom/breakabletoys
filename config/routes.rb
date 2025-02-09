@@ -19,5 +19,8 @@ Rails.application.routes.draw do
   get "/oauth/auth", to: "oauth#auth"
   post "/oauth/token", to: "oauth#token"
 
+  get "/sign-up", to: "users/registrations#new"
+  post "/sign-up", to: "users/registrations#create"
+
   root "home#show"
 end

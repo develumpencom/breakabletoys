@@ -1,0 +1,35 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Sign up</h1>
+
+  <%= form_with(model: @user, url: sign_up_path, class: "contents") do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <ul>
+          <% @user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.text_field :username, required: true, autofocus: true, placeholder: "Your name", value: params[:email_address], class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.email_field :email_address, required: true, autofocus: true, placeholder: "Your email", value: params[:email_address], class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.password_field :password, required: true, placeholder: "Choose a password", maxlength: 72, class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.password_field :password_confirmation, required: true, placeholder: "Repeat the password", maxlength: 72, class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "Sign up", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
