@@ -5,9 +5,11 @@
       <li>
         <%= link_to Current.user.email_address, account_path %>
       </li>
-      <li>
-        <%= link_to "Applications", applications_path %>
-      </li>
+      <% if Current.user.admin? %>
+        <li>
+          <%= link_to "Applications", applications_path %>
+        </li>
+      <% end %>
     <% else %>
       <li>
         <%= link_to "Sign in", new_session_path %>

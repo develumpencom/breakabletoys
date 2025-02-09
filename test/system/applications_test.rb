@@ -8,7 +8,7 @@ class ApplicationsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    sign_in_as users(:one)
+    sign_in_as users(:admin)
 
     visit applications_url
 
@@ -16,7 +16,7 @@ class ApplicationsTest < ApplicationSystemTestCase
   end
 
   test "should create application" do
-    sign_in_as users(:one)
+    sign_in_as users(:admin)
 
     visit applications_url
     click_on "New application"
@@ -31,7 +31,7 @@ class ApplicationsTest < ApplicationSystemTestCase
   end
 
   test "should update Application" do
-    sign_in_as users(:one)
+    sign_in_as users(:admin)
 
     visit application_url(@application)
     click_on "Edit this application", match: :first
@@ -46,7 +46,7 @@ class ApplicationsTest < ApplicationSystemTestCase
   end
 
   test "should destroy Application" do
-    sign_in_as users(:one)
+    sign_in_as users(:admin)
 
     visit application_url(@application)
     click_on "Destroy this application", match: :first
