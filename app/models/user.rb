@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
+
+  enum :role, { user: 0, admin: 1 }
+
   has_many :applications, dependent: :destroy
   has_many :oauth_application_credentials, through: :applications
   has_many :sessions, dependent: :destroy
