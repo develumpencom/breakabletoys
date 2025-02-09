@@ -22,20 +22,20 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_equal "Welcome to Breakable Toys!", flash[:notice]
   end
-  
+
   test "should not create user with duplicated email" do
     @user_params[:email_address] = users(:one).email_address
 
     post sign_up_url, params: { user: @user_params }
-  
+
     assert_response :unprocessable_entity
   end
-  
+
   test "should not create user if passwords don't match" do
     @user_params[:password_confirmation] = "not_the_same"
 
     post sign_up_url, params: { user: @user_params }
-  
+
     assert_response :unprocessable_entity
   end
 end
