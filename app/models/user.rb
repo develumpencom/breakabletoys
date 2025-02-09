@@ -7,4 +7,7 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   generates_token_for(:oauth_authentication, expires_in: 30.seconds)
+
+  validates :email_address, presence: true, uniqueness: true
+  validates :password, length: { in: 8..72 }, confirmation: true, if: -> { new_record? }
 end
