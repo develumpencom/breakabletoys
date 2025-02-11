@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :applications do
     resources :oauth_application_credentials, only: [ :create, :destroy ], shallow: true, path: "oauth-application-credentials"
   end
-  resource :account, only: %i[show], module: "users"
+  resource :account, only: [ :show ], module: "users"
+  resource :newsletter, only: [ :create, :update, :destroy ], controller: "newsletter"
   resources :passwords, param: :token
   resource :session
 
