@@ -63,3 +63,4 @@ group :test do
 end
 
 gem "jwt", "~> 2.10"
+gem "faraday", "~> 2.12"
