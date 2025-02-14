@@ -1,4 +1,6 @@
 class Users::RegistrationsController < ApplicationController
+  layout "sign_in"
+
   allow_unauthenticated_access only: [ :new, :create ]
 
   def new

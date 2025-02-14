@@ -1,5 +1,5 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Sign up</h1>
+<div class="mx-auto w-full max-w-96 bg-white border border-gray-400 rounded-md p-5">
+  <h1 class="font-bold text-xl">Create an account</h1>
 
   <%= form_with(model: @user, url: sign_up_path, class: "contents") do |form| %>
     <%= render "common/form_errors", model: @user %>
@@ -25,3 +25,5 @@
     </div>
   <% end %>
 </div>
+
+<%= link_to "Already have an account?", new_session_path, class: "mt-5 mx-auto underline" %>

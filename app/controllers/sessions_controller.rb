@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout "sign_in"
+
   allow_unauthenticated_access only: %i[ new create ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
@@ -16,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to new_session_path, alert: "You have been signed out correctly."
+    redirect_to root_path, alert: "You have been signed out correctly."
   end
 end
