@@ -36,7 +36,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       delete session_url
     end
 
-    assert_redirected_to new_session_url
+    assert_redirected_to root_url
     assert cookies[:session_id].blank?
   end
 end
