@@ -1,0 +1,24 @@
+<% content_for :title, "Toys" %>
+
+<div class="mb-10 flex justify-between items-center">
+  <h1 class="font-bold text-4xl">Toys</h1>
+  <% if Current.user&.admin? %>
+    <%= link_to "New toy", new_toy_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <% end %>
+</div>
+
+<div id="toys" class="min-w-full grid grid-cols-1 gap-4 lg:grid-cols-2">
+  <% if @toys.any? %>
+    <% @toys.each do |toy| %>
+      <div class="relative flex items-start space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+        <%= link_to toy, class: "focus:outline-none" do %>
+          <span class="absolute inset-0" aria-hidden="true"></span>
+          <p class="font-medium"><%= toy.name %></p>
+          <p class="text-sm"><%= toy.short_description %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center my-10">No toys found.</p>
+  <% end %>
+</div>
