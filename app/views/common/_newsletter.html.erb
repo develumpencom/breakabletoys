@@ -1,4 +1,4 @@
-<% if Current.user && !Current.user.kit_id %>
+<% if Current.user && Current.user.admin? && !Current.user.kit_id %>
   <div class="mb-5">
     <%= button_to "Subscribe to our newsletter", newsletter_path, class: "" %>
   </div>
