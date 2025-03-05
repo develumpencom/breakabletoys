@@ -7,4 +7,12 @@ class Toy < ApplicationRecord
   }
 
   validates_presence_of :name, :slug, :status
+
+  def to_param
+    slug
+  end
+
+  def self.find(slug)
+    self.find_by(slug:)
+  end
 end

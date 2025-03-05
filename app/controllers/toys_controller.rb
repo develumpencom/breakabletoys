@@ -1,9 +1,13 @@
 class ToysController < ApplicationController
-  allow_unauthenticated_access only: [ :index ]
+  allow_unauthenticated_access only: [ :index, :show ]
   before_action :require_admin, only: [ :new, :create ]
+  before_action :set_toy, only: [ :show ]
 
   def index
     @toys = Toy.all
+  end
+
+  def show
   end
 
   def new
@@ -26,5 +30,9 @@ class ToysController < ApplicationController
     params.expect(toy: [ :name, :slug, :url, :short_description, :status ]).tap do |toy|
       toy[:status] = toy[:status].to_i
     end
+  end
+
+  def set_toy
+    @toy ||= Toy.find(params[:id])
   end
 end
