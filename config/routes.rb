@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
   resource :account, only: [ :show ], module: "users"
   resource :newsletter, only: [ :create, :update, :destroy ], controller: "newsletter"
+  resources :toys
   resources :passwords, param: :token
   resource :session
 

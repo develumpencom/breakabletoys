@@ -6,16 +6,16 @@
 </div>
 
 <div id="applications" class="min-w-full grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <% if @applications.any? %>
-      <% @applications.each do |application| %>
-        <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-          <%= link_to application, class: "focus:outline-none" do %>
-            <span class="absolute inset-0" aria-hidden="true"></span>
-            <p class="text-sm font-medium text-gray-900"><%= application.name %></p>
-          <% end %>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No applications found.</p>
+  <% if @applications.any? %>
+    <% @applications.each do |application| %>
+      <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+        <%= link_to application, class: "focus:outline-none" do %>
+          <span class="absolute inset-0" aria-hidden="true"></span>
+          <p class="text-sm font-medium text-gray-900"><%= application.name %></p>
+        <% end %>
+      </div>
     <% end %>
-  </div>
+  <% else %>
+    <p class="text-center my-10">No applications found.</p>
+  <% end %>
+</div>
