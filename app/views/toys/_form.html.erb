@@ -26,7 +26,13 @@
     <%= form.text_area :short_description, class: "block shadow rounded-md border border-gray-400 outline-none focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="inline">
+  <div class="flex justify-between items-center">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <% if action_name == "edit" %>
+      <%= submit_tag "Delete", form: "delete-toy", data: { turbo_confirm: "Are you sure?" }, class: "rounded-lg text-red-500 py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <% end %>
   </div>
+<% end %>
+
+<%= form_with(model: @toy, method: :delete, id: "delete-toy") do |form| %>
 <% end %>
