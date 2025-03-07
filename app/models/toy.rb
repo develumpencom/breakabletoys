@@ -12,6 +12,14 @@ class Toy < ApplicationRecord
     slug
   end
 
+  def safe_url
+    uri = URI.parse(url)
+
+    uri.to_s if uri.is_a?(URI::HTTP)
+  rescue URI::InvalidURIError
+    nil
+  end
+
   def self.find(slug)
     self.find_by(slug:)
   end

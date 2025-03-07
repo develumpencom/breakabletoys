@@ -10,10 +10,11 @@
           <%= link_to "Applications", applications_path %>
         </li>
       <% end %>
-    <% else %>
-      <li>
-        <%= link_to "Toys", toys_path %>
-      </li>
+    <% end %>
+    <li>
+      <%= link_to "Toys", toys_path %>
+    </li>
+    <% if !authenticated? %>
       <li>
         <%= link_to "Sign in", new_session_path %>
       </li>
