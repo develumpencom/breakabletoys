@@ -6,6 +6,8 @@ class Toy < ApplicationRecord
     idea: 3
   }
 
+  has_rich_text :description
+
   validates_presence_of :name, :slug, :status
 
   def to_param

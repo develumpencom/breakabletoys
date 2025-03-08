@@ -44,7 +44,7 @@ class ToysController < ApplicationController
   private
 
   def toy_params
-    params.expect(toy: [ :name, :slug, :url, :short_description, :status ]).tap do |toy|
+    params.expect(toy: [ :name, :slug, :url, :short_description, :description, :status ]).tap do |toy|
       toy[:status] = toy[:status].to_i
     end
   end
