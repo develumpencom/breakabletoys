@@ -26,6 +26,9 @@
   <body>
     <main class="container mx-auto my-5 px-5">
       <%= render "common/menu" %>
+      <% if controller.class == AdminController || controller.class < AdminController %>
+        <%= render "common/admin_menu" %>
+      <% end %>
       <%= render "common/flash" %>
       <%= render "common/newsletter" %>
       <%= yield %>
