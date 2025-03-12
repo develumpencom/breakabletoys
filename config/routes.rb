@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resource :session
 
+  resource :admin, only: [ :show ], controller: "admin"
+  namespace :admin do
+    resources :users
+  end
+
   get "/oauth/auth", to: "oauth#auth"
   post "/oauth/token", to: "oauth#token"
 
